@@ -1,0 +1,15 @@
+<%
+      import org.exoplatform.portal.webui.util.Util;
+      import org.exoplatform.webui.application.portlet.PortletRequestContext;
+      import org.exoplatform.web.application.JavascriptManager;
+
+      def pcontext = Util.getPortalRequestContext();
+      def jsManager = pcontext.getJavascriptManager();
+      jsManager.require("SHARED/jQueryBirthdaysReminder", "birthdaysrreminder").addScripts("birthdaysrreminder.initBirthdaysReminder();");
+%>
+<div style="display:none;" class="uiBox uiSuggestions" id="content">
+<h6 class="title center">Birthdays</h6>
+<div style="display:none;" class="peopleList" id="peopleSuggest">
+   <ul id='birthdaysContent'>
+   </ul>
+</div>
