@@ -13,8 +13,7 @@
                     content += "<div class='peopleInfo'>";
                     content += "<div class='peopleName'><a href='"+item.profileLink+"' target='_self'>"+item.username+"</a></div>";
                     content += "<div class='peopleContainer clearfix'>";
-				          	content += "<div style='display:none;' class='peopleAction' ><a class='connect btn-primary btn btn-mini' href='#' onclick='return false'></a><a class='ignore' href='#' onclick='return false'> <i class='uiIconClose'></i></a></div>";
-                    content +="<div class='peopleDisplay'><div class='peoplePosition'></div><div class='peopleConnection'>"+item.birthday+"</div></div>";
+                    content +="<div class='peopleDisplay'><div class='peoplePosition'>"+item.birthday+"</div></div>";
 				          	content += "</div>";
 				            content += "</div></li>";
 

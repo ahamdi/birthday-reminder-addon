@@ -47,6 +47,7 @@ public class BirthdayReminderRestService implements ResourceContainer {
 
   private static final CacheControl cacheControl;
   private static final String OPENSOCIAL_VIEWER_ID = "opensocial_viewer_id";
+  private static final String DEFAULT_AVATAR = "/eXoSkin/skin/images/themes/default/social/skin/ShareImages/UserAvtDefault.png";
   private BirthdaysReminderService birthdaysReminderService;
   private IdentityManager identityManager;
 
@@ -81,17 +82,20 @@ public class BirthdayReminderRestService implements ResourceContainer {
       if(locale != null){
         df = DateFormat.getDateInstance(DateFormat.MEDIUM,locale);
       }
-      List<UserImpl> users = birthdaysReminderService.nextBirthdays(today, days);
-
+      List<UserImpl> users = birthdaysReminderService.getUserBirthdays(today, days);
       JSONArray jsonArray = new JSONArray();
-      for (UserImpl wrapper : users) {
-        Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME,wrapper.getUser().getUserName(),true);
+      for (UserImpl user : users) {
+        Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME,user.getUser().getUserName(),true);
         JSONObject json = new JSONObject();
-        json.put("username",wrapper.getUser().getDisplayName());
+        json.put("username",user.getUser().getFirstName()+" "+user.getUser().getLastName());
         json.put("identityId",identity.getId());
-        json.put("avatar",identity.getProfile().getAvatarUrl());
+        String avatar = identity.getProfile().getAvatarUrl();
+        if (avatar == null) {
+          avatar = DEFAULT_AVATAR;
+        }
+        json.put("avatar",avatar);
         json.put("profileLink",identity.getProfile().getUrl());
-        json.put("birthday",df.format(wrapper.getBirthday()));
+        json.put("birthday",df.format(user.getBirthday().getTime()));
         jsonArray.put(json);
       }
 

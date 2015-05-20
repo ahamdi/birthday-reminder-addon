@@ -31,7 +31,7 @@ public class BirthdaysCollectorJob extends BaseJob {
     PortalContainer portalContainer = PortalContainer.getInstance();
     BirthdaysReminderService birthdaysReminderService = (BirthdaysReminderService) portalContainer.getComponentInstanceOfType(BirthdaysReminderService.class);
     try {
-      birthdaysReminderService.celebrateBirthday(Calendar.getInstance().getTime());
+      birthdaysReminderService.collectBirthdaysFor(Calendar.getInstance().getTime());
     } catch (Exception e) {
       LOG.error("An error occurred when executing the job",e);
     }

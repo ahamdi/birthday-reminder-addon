@@ -50,7 +50,7 @@
           <property name="jobName" value="BirthdateCollectorJob"/>
           <property name="groupName" value="group"/>
           <property name="job" value="tn.ahamdi.birthdaysreminder.job.BirthdaysCollectorJob"/>
-          <property name="expression" value="0/30 * * * * ?"/>
+          <property name="expression" value="15 1 0 * * ? *"/> <!-- Daily at Midnight-->
         </properties-param>
       </init-params>
     </component-plugin>

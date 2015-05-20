@@ -1,5 +1,6 @@
 package tn.ahamdi.birthdaysreminder.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -13,9 +14,9 @@ import org.exoplatform.services.organization.User;
  */
 public class UserImpl {
   private org.exoplatform.services.organization.User user;
-  private Date birthday;
+  private Calendar birthday;
 
-  public UserImpl(org.exoplatform.services.organization.User user, Date birthday) {
+  public UserImpl(org.exoplatform.services.organization.User user, Calendar birthday) {
     this.user = user;
     this.birthday = birthday;
   }
@@ -28,11 +29,11 @@ public class UserImpl {
     this.user = user;
   }
 
-  public Date getBirthday() {
+  public Calendar getBirthday() {
     return birthday;
   }
 
-  public void setBirthday(Date birthday) {
+  public void setBirthday(Calendar birthday) {
     this.birthday = birthday;
   }
 }

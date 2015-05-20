@@ -1,5 +1,6 @@
 package tn.ahamdi.birthdaysreminder.services;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.container.xml.InitParams;
+import org.exoplatform.services.cache.CacheService;
+import org.exoplatform.services.cache.ExoCache;
 import org.exoplatform.services.listener.ListenerService;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
@@ -37,19 +40,15 @@ public class BirthdaysReminderService {
   private static final String BATCH_LOAD = "BatchLoad";
   private Log LOG = ExoLogger.getExoLogger(BirthdaysReminderService.class);
   private OrganizationService organizationService;
-  private RelationshipManager relashioshiManager;
-  private IdentityManager identityManager;
   private ListenerService listenerService;
-  protected final Map<String, UserImpl> birthdaysMap;
+  protected final ExoCache<String, List<UserImpl>> birthdaysMap;
   private int inDays = 7;
   private int batch = 10;
+  private DateFormat df = new SimpleDateFormat("dd-MM");
 
-  public BirthdaysReminderService(OrganizationService organizationService, ListenerService listenerService, InitParams params,RelationshipManager relashioshiManager,IdentityManager identityManager) {
-    this.relashioshiManager = relashioshiManager;
-    this.identityManager = identityManager;
+  public BirthdaysReminderService(OrganizationService organizationService, ListenerService listenerService, InitParams params, CacheService cacheService) {
     this.organizationService = organizationService;
-
-    birthdaysMap = new ConcurrentHashMap<String, UserImpl>();
+    birthdaysMap = cacheService.getCacheInstance("tn.ahamdi.birthdaysreminder.services.BirthdaysReminderCache");
     this.listenerService = listenerService;
     try {
       String days = params.getValueParam(IN_DAYS).getValue();
@@ -71,51 +70,50 @@ public class BirthdaysReminderService {
       for (org.exoplatform.services.organization.User user : userList) {
         UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(user.getUserName());
         StringBuilder userAttributes = new StringBuilder();
+        //TODO for debugging , to remove
         for (String key : UserProfile.PERSONAL_INFO_KEYS) {
           if (profile.getAttribute(key) != null && !profile.getAttribute(key).isEmpty()) {
             userAttributes.append(key).append(" : ").append(profile.getAttribute(key)).append("\n");
           }
 
         }
+        //get the birthday
         String birthday = profile.getAttribute(UserProfile.PERSONAL_INFO_KEYS[3]);
         if (birthday != null && !birthday.isEmpty()) {
           LOG.debug("User " + userAttributes.toString() + "\n birthday is " + birthday);
-          Date birthdayDate = DateUtils.convertDate(birthday);
-          UserImpl wrapper = new UserImpl(user, birthdayDate);
-          birthdaysMap.put(user.getUserName(), wrapper);
+          Calendar birthdayCal = DateUtils.convertDate(birthday);
+          if(birthdayCal != null) {
+            String key = df.format(birthdayCal.getTime());
+            List<UserImpl> usersList = birthdaysMap.get(key);
+            if (usersList == null)  {
+              usersList = new ArrayList<UserImpl>();
+            }
+            UserImpl wrapper = new UserImpl(user,birthdayCal);
+            usersList.add(wrapper);
+            birthdaysMap.put(key,usersList) ;
+          }
         }
       }
       progress += batch;
     }
   }
 
-  public List<UserImpl> myConnectionsBirthdays(String user,Date date, int days) throws Exception {
+  public List<UserImpl> getUserBirthdays(Date date, int days) throws Exception {
     List<UserImpl> users = new ArrayList<UserImpl>();
     DateFormat format = new SimpleDateFormat("dd-MM-YYYY");
-    //start day
-    Calendar dayStart = Calendar.getInstance();
-    dayStart.setTime(date);
-    dayStart.set(Calendar.HOUR_OF_DAY, 0);
-    dayStart.set(Calendar.MINUTE, 0);
-    dayStart.set(Calendar.SECOND, 0);
-    dayStart.set(Calendar.MILLISECOND, 0);
-    //End day
-    Calendar dayEnd = Calendar.getInstance();
-    dayEnd.set(Calendar.DAY_OF_YEAR, dayEnd.get(Calendar.DAY_OF_YEAR) + days);
-    dayEnd.set(Calendar.HOUR, 23);
-    dayEnd.set(Calendar.MINUTE, 59);
-    dayEnd.set(Calendar.SECOND, 59);
-    dayEnd.set(Calendar.MILLISECOND, 999);
-    // Check the birthdays of my connections
-    Identity userIdentity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME,user,true);
-    ListAccess<Identity> connections = relashioshiManager.getConnections(userIdentity);
-    Identity[] userConnections = connections.load(0,connections.getSize());
-    for(Identity connection : userConnections){
-       connection.getProfile().getProperty("birthday");
-    }
-
-
-    for (UserImpl item : birthdaysMap.values()) {
+    Calendar dayStart = DateUtils.getStartOfDay(date);
+    Calendar dayEnd = DateUtils.getEndOfDay(date);
+    dayEnd.set(Calendar.DAY_OF_YEAR,dayEnd.get(Calendar.DAY_OF_YEAR)+days);
+    Calendar step = (Calendar) dayStart.clone();
+    List<UserImpl> usernames = new ArrayList<UserImpl>();
+    while(step.before(dayEnd)){
+      String key = df.format(step.getTime());
+      if(birthdaysMap.get(key) != null) {
+        usernames.addAll(birthdaysMap.get(key));
+      }
+      step.set(Calendar.DAY_OF_YEAR,step.get(Calendar.DAY_OF_YEAR)+1);
+    } /*
+    for (String item : birthdaysMap.values()) {
       Calendar birthdayCal = Calendar.getInstance();
       birthdayCal.setTime(item.getBirthday());
       birthdayCal.set(Calendar.YEAR, dayEnd.get(Calendar.YEAR));
@@ -123,47 +121,22 @@ public class BirthdaysReminderService {
         users.add(item);
         LOG.info("User " + item.getUser().getDisplayName() + " Birthday : " + format.format(item.getBirthday()));
       }
-    }
-    return users;
+    }    */
+    return usernames;
   }
 
-  public List<UserImpl> nextBirthdays(Date date, int days) throws Exception {
-    List<UserImpl> users = new ArrayList<UserImpl>();
-    DateFormat format = new SimpleDateFormat("dd-MM-YYYY");
-    //start day
-    Calendar dayStart = Calendar.getInstance();
-    dayStart.setTime(date);
-    dayStart.set(Calendar.HOUR_OF_DAY, 0);
-    dayStart.set(Calendar.MINUTE, 0);
-    dayStart.set(Calendar.SECOND, 0);
-    dayStart.set(Calendar.MILLISECOND, 0);
-    //End day
-    Calendar dayEnd = Calendar.getInstance();
-    dayEnd.set(Calendar.DAY_OF_YEAR, dayEnd.get(Calendar.DAY_OF_YEAR) + days);
-    dayEnd.set(Calendar.HOUR, 23);
-    dayEnd.set(Calendar.MINUTE, 59);
-    dayEnd.set(Calendar.SECOND, 59);
-    dayEnd.set(Calendar.MILLISECOND, 999);
-    for (UserImpl item : birthdaysMap.values()) {
-      Calendar birthdayCal = Calendar.getInstance();
-      birthdayCal.setTime(item.getBirthday());
-      birthdayCal.set(Calendar.YEAR, dayEnd.get(Calendar.YEAR));
-      if (dayStart.compareTo(birthdayCal) <= 0 && dayEnd.compareTo(birthdayCal) >= 0) {
-        users.add(item);
-        LOG.info("User " + item.getUser().getDisplayName() + " Birthday : " + format.format(item.getBirthday()));
-      }
-    }
-    return users;
-  }
-
-  public void celebrateBirthday(Date date) {
+  public void fireBirthdayEvents(List<UserImpl> users) {
     try {
-      List<UserImpl> users = nextBirthdays(date, inDays);
       for (UserImpl item : users) {
-        listenerService.broadcast("tn.ahamdi.birthdayreminder.celebrate", this, item.getUser());
+        listenerService.broadcast("tn.ahamdi.birthdayreminder.celebrate", this, item.getUser().getDisplayName());
       }
     } catch (Exception e) {
       LOG.error("An error occurred when broadcasting Birthday celebration", e);
     }
+  }
+
+  public void collectBirthdaysFor(Date time) throws Exception {
+    List<UserImpl> users = getUserBirthdays(time, 0);
+    fireBirthdayEvents(users);
   }
 }
