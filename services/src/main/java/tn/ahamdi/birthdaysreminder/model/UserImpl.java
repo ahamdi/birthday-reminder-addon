@@ -16,12 +16,10 @@ import org.exoplatform.services.organization.User;
 public class UserImpl {
   private org.exoplatform.services.organization.User user;
   private Calendar birthday;
-  private Locale locale;
 
   public UserImpl(User user, Calendar birthday) {
     this.user = user;
     this.birthday = birthday;
-    this.locale = locale;
   }
 
   public org.exoplatform.services.organization.User getUser() {
@@ -38,13 +36,5 @@ public class UserImpl {
 
   public void setBirthday(Calendar birthday) {
     this.birthday = birthday;
-  }
-
-  public Locale getLocale() {
-    return locale;
-  }
-
-  public void setLocale(Locale locale) {
-    this.locale = locale;
   }
 }
