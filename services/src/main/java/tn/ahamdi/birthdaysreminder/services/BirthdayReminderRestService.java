@@ -87,7 +87,7 @@ public class BirthdayReminderRestService implements ResourceContainer {
       DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
       Locale locale = getUserlocale(userId);
       if(locale != null) {
-        df = DateFormat.getDateInstance(DateFormat.MEDIUM, getUserlocale(userId));
+        df = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
       }
       List<UserImpl> users = birthdaysReminderService.getUserBirthdays(today, days);
       //
