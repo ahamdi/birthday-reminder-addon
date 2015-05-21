@@ -30,6 +30,7 @@ import juzu.arquillian.Helper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import tn.ahamdi.birthdaysreminder.birthdays.Controller;
 
 import static junit.framework.Assert.*;
 
@@ -39,7 +40,7 @@ public class ApplicationTestCase {
   @Deployment
   public static WebArchive createDeployment() {
     WebArchive war = Helper.createBaseServletDeployment("guice");
-    war.addPackages(true, Application.class.getPackage());
+    war.addPackages(true, Controller.class.getPackage());
     return war;
   }
 

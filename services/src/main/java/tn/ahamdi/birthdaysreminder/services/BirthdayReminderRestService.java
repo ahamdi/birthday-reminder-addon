@@ -21,9 +21,14 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.RuntimeDelegate;
 import org.exoplatform.common.http.HTTPStatus;
+import org.exoplatform.portal.application.PortalRequestContext;
 import org.exoplatform.portal.application.localization.LocalizationFilter;
+import org.exoplatform.portal.config.UserPortalConfigService;
+import org.exoplatform.portal.mop.user.UserPortalContext;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
+import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.UserProfile;
 import org.exoplatform.services.rest.impl.RuntimeDelegateImpl;
 import org.exoplatform.services.rest.resource.ResourceContainer;
 import org.exoplatform.social.core.identity.model.Identity;
@@ -50,6 +55,7 @@ public class BirthdayReminderRestService implements ResourceContainer {
   private static final String DEFAULT_AVATAR = "/eXoSkin/skin/images/themes/default/social/skin/ShareImages/UserAvtDefault.png";
   private BirthdaysReminderService birthdaysReminderService;
   private IdentityManager identityManager;
+  private OrganizationService organizationService;
 
   static {
     RuntimeDelegate.setInstance(new RuntimeDelegateImpl());
@@ -58,9 +64,10 @@ public class BirthdayReminderRestService implements ResourceContainer {
     cacheControl.setNoStore(true);
   }
 
-  public BirthdayReminderRestService(BirthdaysReminderService birthdaysReminderService,IdentityManager identityManager) {
+  public BirthdayReminderRestService(BirthdaysReminderService birthdaysReminderService,IdentityManager identityManager,OrganizationService organizationService) {
     this.birthdaysReminderService = birthdaysReminderService;
     this.identityManager = identityManager;
+    this.organizationService =organizationService;
   }
   @GET
   @Path("birthdays")
@@ -78,11 +85,12 @@ public class BirthdayReminderRestService implements ResourceContainer {
         days = 7;
       }
       DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
-      Locale locale = LocalizationFilter.getCurrentLocale();
-      if(locale != null){
-        df = DateFormat.getDateInstance(DateFormat.MEDIUM,locale);
+      Locale locale = getUserlocale(userId);
+      if(locale != null) {
+        df = DateFormat.getDateInstance(DateFormat.MEDIUM, getUserlocale(userId));
       }
       List<UserImpl> users = birthdaysReminderService.getUserBirthdays(today, days);
+      //
       JSONArray jsonArray = new JSONArray();
       for (UserImpl user : users) {
         Identity identity = identityManager.getOrCreateIdentity(OrganizationIdentityProvider.NAME,user.getUser().getUserName(),true);
@@ -128,5 +136,13 @@ public class BirthdayReminderRestService implements ResourceContainer {
     }
     return null;
   }
-
+  private Locale getUserlocale (String userId) throws Exception {
+    UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(userId);
+    String language = profile.getAttribute(UserProfile.PERSONAL_INFO_KEYS[8]);
+    Locale locale = null;
+    if(language != null && !language.isEmpty()) {
+      locale = new Locale(language);
+    }
+    return locale;
+  }
 }

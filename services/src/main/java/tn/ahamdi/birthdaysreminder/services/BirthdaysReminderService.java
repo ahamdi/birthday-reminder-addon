@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -66,7 +67,8 @@ public class BirthdaysReminderService {
     ListAccess<org.exoplatform.services.organization.User> users = organizationService.getUserHandler().findAllUsers();
     int progress = 0;
     while(progress <= users.getSize()) {
-      org.exoplatform.services.organization.User[] userList = users.load(progress, batch);
+      int length = progress + batch <= users.getSize() ? batch : users.getSize() - progress;
+      org.exoplatform.services.organization.User[] userList = users.load(progress, length);
       for (org.exoplatform.services.organization.User user : userList) {
         UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(user.getUserName());
         StringBuilder userAttributes = new StringBuilder();
@@ -79,6 +81,7 @@ public class BirthdaysReminderService {
         }
         //get the birthday
         String birthday = profile.getAttribute(UserProfile.PERSONAL_INFO_KEYS[3]);
+
         if (birthday != null && !birthday.isEmpty()) {
           LOG.debug("User " + userAttributes.toString() + "\n birthday is " + birthday);
           Calendar birthdayCal = DateUtils.convertDate(birthday);
@@ -99,8 +102,6 @@ public class BirthdaysReminderService {
   }
 
   public List<UserImpl> getUserBirthdays(Date date, int days) throws Exception {
-    List<UserImpl> users = new ArrayList<UserImpl>();
-    DateFormat format = new SimpleDateFormat("dd-MM-YYYY");
     Calendar dayStart = DateUtils.getStartOfDay(date);
     Calendar dayEnd = DateUtils.getEndOfDay(date);
     dayEnd.set(Calendar.DAY_OF_YEAR,dayEnd.get(Calendar.DAY_OF_YEAR)+days);
