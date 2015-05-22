@@ -78,11 +78,11 @@ public class BirthdayReminderRestService implements ResourceContainer {
         return Response.status(HTTPStatus.INTERNAL_ERROR).cacheControl(cacheControl).build();
       }
       Date today = Calendar.getInstance().getTime();
-      int days =0;
+      int days = -1;
       try {
         days = Integer.parseInt(inDays);
       }catch (NumberFormatException nfe){
-        days = 7;
+        // Do Nothing, just take the default value
       }
       DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
       Locale locale = getUserlocale(userId);

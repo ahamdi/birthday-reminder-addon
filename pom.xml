@@ -9,7 +9,7 @@
     <version>4.2.0-M2</version>
   </parent>
   <groupId>tn.ahamdi</groupId>
-  <artifactId>birthday-celebration</artifactId>
+  <artifactId>birthdays-reminder-addon</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <modules>
     <module>services</module>

@@ -104,6 +104,9 @@ public class BirthdaysReminderService {
   public List<UserImpl> getUserBirthdays(Date date, int days) throws Exception {
     Calendar dayStart = DateUtils.getStartOfDay(date);
     Calendar dayEnd = DateUtils.getEndOfDay(date);
+    if(days == -1){
+      days = inDays;
+    }
     dayEnd.set(Calendar.DAY_OF_YEAR,dayEnd.get(Calendar.DAY_OF_YEAR)+days);
     Calendar step = (Calendar) dayStart.clone();
     List<UserImpl> usernames = new ArrayList<UserImpl>();
@@ -112,17 +115,8 @@ public class BirthdaysReminderService {
       if(birthdaysMap.get(key) != null) {
         usernames.addAll(birthdaysMap.get(key));
       }
-      step.set(Calendar.DAY_OF_YEAR,step.get(Calendar.DAY_OF_YEAR)+1);
-    } /*
-    for (String item : birthdaysMap.values()) {
-      Calendar birthdayCal = Calendar.getInstance();
-      birthdayCal.setTime(item.getBirthday());
-      birthdayCal.set(Calendar.YEAR, dayEnd.get(Calendar.YEAR));
-      if (dayStart.compareTo(birthdayCal) <= 0 && dayEnd.compareTo(birthdayCal) >= 0) {
-        users.add(item);
-        LOG.info("User " + item.getUser().getDisplayName() + " Birthday : " + format.format(item.getBirthday()));
-      }
-    }    */
+      step.set(Calendar.DAY_OF_YEAR,step.get(Calendar.DAY_OF_YEAR) + 1);
+    }
     return usernames;
   }
 
