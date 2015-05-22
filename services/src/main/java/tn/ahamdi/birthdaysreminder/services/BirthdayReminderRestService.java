@@ -139,7 +139,7 @@ public class BirthdayReminderRestService implements ResourceContainer {
   private Locale getUserlocale (String userId) throws Exception {
     UserProfile profile = organizationService.getUserProfileHandler().findUserProfileByName(userId);
     String language = profile.getAttribute(UserProfile.PERSONAL_INFO_KEYS[8]);
-    Locale locale = null;
+    Locale locale = new Locale("en");//Set by default for EN
     if(language != null && !language.isEmpty()) {
       locale = new Locale(language);
     }
