@@ -37,4 +37,23 @@ public class UserImpl {
   public void setBirthday(Calendar birthday) {
     this.birthday = birthday;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof UserImpl)) return false;
+
+    UserImpl user1 = (UserImpl) o;
+
+    if (user != null ? !user.equals(user1.user) : user1.user != null) return false;
+    return !(birthday != null ? !birthday.equals(user1.birthday) : user1.birthday != null);
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = user != null ? user.hashCode() : 0;
+    result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+    return result;
+  }
 }

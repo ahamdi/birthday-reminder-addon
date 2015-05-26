@@ -89,7 +89,7 @@ public class BirthdayReminderRestService implements ResourceContainer {
       if(locale != null) {
         df = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
       }
-      List<UserImpl> users = birthdaysReminderService.getUserBirthdays(today, days);
+      List<UserImpl> users = birthdaysReminderService.getUserBirthdays(today, days, userId);
       //
       JSONArray jsonArray = new JSONArray();
       for (UserImpl user : users) {

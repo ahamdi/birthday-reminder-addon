@@ -30,6 +30,11 @@
         <name>BatchLoad</name>
         <value>10</value>
       </value-param>
+      <!-- Mode : All : search all users - contacts : search just social contacts , possible values : all , contacts -->
+      <value-param>
+        <name>mode</name>
+        <value>all</value>
+      </value-param>
     </init-params>
   </component>
   <component>
@@ -57,12 +62,53 @@
   </external-component-plugins>
 
   <external-component-plugins>
+    <target-component>org.exoplatform.services.organization.OrganizationService</target-component>
+    <component-plugin>
+      <name>birthdaysReminder.update.profile.event.listener</name>
+      <set-method>addListenerPlugin</set-method>
+      <type>tn.ahamdi.birthdaysreminder.Listener.NewUserProfileListener</type>
+    </component-plugin>
+  </external-component-plugins>
+
+  <external-component-plugins>
     <target-component>org.exoplatform.services.listener.ListenerService</target-component>
     <component-plugin>
       <name>tn.ahamdi.birthdayreminder.celebrate</name>
       <set-method>addListener</set-method>
       <type>tn.ahamdi.birthdaysreminder.Listener.DummyBirthdayCelebrateListener</type>
       <description>Dummy Listener for celebrate birthday</description>
+    </component-plugin>
+  </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.commons.addons.AddOnService</target-component>
+    <component-plugin>
+      <name>addPlugin</name>
+      <set-method>addPlugin</set-method>
+      <type>org.exoplatform.commons.addons.AddOnPluginImpl</type>
+      <description>add application Config</description>
+      <init-params>
+        <value-param>
+          <name>priority</name>
+          <value>5</value>
+        </value-param>
+        <value-param>
+          <name>containerName</name>
+          <value>top-application-container</value>
+        </value-param>
+        <object-param>
+          <name>BirthdaysReminderApplication</name>
+          <description>Birthdays reminder portlet</description>
+          <object type="org.exoplatform.portal.config.serialize.PortletApplication">
+            <field name="state">
+              <object type="org.exoplatform.portal.config.model.TransientApplicationState">
+                <field name="contentId">
+                  <string>BirthdaysReminder/BirthdaysPortlet</string>
+                </field>
+              </object>
+            </field>
+          </object>
+        </object-param>
+      </init-params>
     </component-plugin>
   </external-component-plugins>
 </configuration>
