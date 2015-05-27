@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tn.ahamdi.birthdaysreminder.birthdays;
+package org.exoplatform.addons.birthdaysreminder.birthdays;
 
 import juzu.Path;
 import juzu.View;

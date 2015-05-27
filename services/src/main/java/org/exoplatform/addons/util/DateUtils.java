@@ -1,4 +1,4 @@
-package tn.ahamdi.util;
+package org.exoplatform.addons.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

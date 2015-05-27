@@ -1,4 +1,4 @@
-package tn.ahamdi.birthdaysreminder.job;
+package org.exoplatform.addons.birthdaysreminder.job;
 
 import java.util.Calendar;
 
@@ -10,7 +10,7 @@ import org.exoplatform.services.scheduler.BaseJob;
 import org.exoplatform.services.scheduler.JobContext;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService;
+import org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService;
 
 /**
  * Created by IntelliJ IDEA.

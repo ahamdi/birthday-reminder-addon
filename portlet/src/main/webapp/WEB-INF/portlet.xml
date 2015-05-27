@@ -7,7 +7,7 @@
    <portlet>
      <portlet-name>BirthdaysPortlet</portlet-name>
      <display-name xml:lang="EN">Birthdays Reminder Application</display-name>
-     <portlet-class>tn.ahamdi.birthdaysreminder.birthdays.BirthdaysPortlet</portlet-class>
+     <portlet-class>org.exoplatform.addons.birthdaysreminder.birthdays.BirthdaysPortlet</portlet-class>
      <init-param>
        <name>juzu.app_name</name>
        <value>tn.ahamdi.BirthdaysReminder</value>

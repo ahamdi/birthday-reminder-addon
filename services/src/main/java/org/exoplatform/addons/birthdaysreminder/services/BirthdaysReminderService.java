@@ -1,4 +1,4 @@
-package tn.ahamdi.birthdaysreminder.services;
+package org.exoplatform.addons.birthdaysreminder.services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
-import org.apache.shindig.social.opensocial.model.Organization;
+import org.exoplatform.addons.birthdaysreminder.model.UserImpl;
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.container.PortalContainer;
 import org.exoplatform.container.xml.InitParams;
@@ -31,8 +29,7 @@ import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvide
 import org.exoplatform.social.core.manager.IdentityManager;
 import org.exoplatform.social.core.manager.RelationshipManager;
 import org.exoplatform.social.core.relationship.model.Relationship;
-import tn.ahamdi.birthdaysreminder.model.UserImpl;
-import tn.ahamdi.util.DateUtils;
+import org.exoplatform.addons.util.DateUtils;
 
 /**
  * Created by IntelliJ IDEA.

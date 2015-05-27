@@ -3,9 +3,9 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.exoplatform.platform</groupId>
-    <artifactId>platform</artifactId>
-    <version>4.2.0-M2</version>
+    <groupId>org.exoplatform.addons</groupId>
+    <artifactId>addons-parent-pom</artifactId>
+    <version>5</version>
   </parent>
   <groupId>tn.ahamdi</groupId>
   <artifactId>birthdays-reminder-addon</artifactId>
@@ -29,6 +29,9 @@
     <javax.inject.version>1</javax.inject.version>
     <com.google.guice.version>3.0</com.google.guice.version>
     <aopalliance.version>1.0</aopalliance.version>
+    <org.exoplatform.core.version>2.5.11-GA</org.exoplatform.core.version>
+    <org.exoplatform.ws.version>2.3.11-GA</org.exoplatform.ws.version>
+    <org.exoplatform.social.version>4.1.0</org.exoplatform.social.version>
   </properties>
 
   <dependencies>
@@ -122,6 +125,7 @@
     <dependency>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
+      <version>1.3.04</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

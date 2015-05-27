@@ -1,8 +1,6 @@
-package tn.ahamdi.birthdaysreminder.model;
+package org.exoplatform.addons.birthdaysreminder.model;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 import org.exoplatform.services.organization.User;

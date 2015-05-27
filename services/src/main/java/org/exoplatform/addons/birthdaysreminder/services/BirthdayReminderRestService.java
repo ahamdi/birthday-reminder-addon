@@ -1,4 +1,4 @@
-package tn.ahamdi.birthdaysreminder.services;
+package org.exoplatform.addons.birthdaysreminder.services;
 
 import java.net.URI;
 import java.text.DateFormat;
@@ -20,11 +20,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.RuntimeDelegate;
+import org.exoplatform.addons.birthdaysreminder.model.UserImpl;
 import org.exoplatform.common.http.HTTPStatus;
-import org.exoplatform.portal.application.PortalRequestContext;
-import org.exoplatform.portal.application.localization.LocalizationFilter;
-import org.exoplatform.portal.config.UserPortalConfigService;
-import org.exoplatform.portal.mop.user.UserPortalContext;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
 import org.exoplatform.services.organization.OrganizationService;
@@ -36,7 +33,6 @@ import org.exoplatform.social.core.identity.provider.OrganizationIdentityProvide
 import org.exoplatform.social.core.manager.IdentityManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import tn.ahamdi.birthdaysreminder.model.UserImpl;
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,7 +48,8 @@ public class BirthdayReminderRestService implements ResourceContainer {
 
   private static final CacheControl cacheControl;
   private static final String OPENSOCIAL_VIEWER_ID = "opensocial_viewer_id";
-  private static final String DEFAULT_AVATAR = "/eXoSkin/skin/images/themes/default/social/skin/ShareImages/UserAvtDefault.png";
+  //private static final String DEFAULT_AVATAR = "/eXoSkin/skin/images/themes/default/social/skin/ShareImages/UserAvtDefault.png";//eXo Platform 4.2
+  private static final String DEFAULT_AVATAR = "/social-resources/skin/images/ShareImages/UserAvtDefault.png";  //eXo Platform 4.1
   private BirthdaysReminderService birthdaysReminderService;
   private IdentityManager identityManager;
   private OrganizationService organizationService;

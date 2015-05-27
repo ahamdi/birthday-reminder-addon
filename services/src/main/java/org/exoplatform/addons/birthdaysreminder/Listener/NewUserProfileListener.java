@@ -1,8 +1,8 @@
-package tn.ahamdi.birthdaysreminder.Listener;
+package org.exoplatform.addons.birthdaysreminder.Listener;
 
+import org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService;
 import org.exoplatform.services.organization.UserProfile;
 import org.exoplatform.services.organization.UserProfileEventListener;
-import tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService;
 
 /**
  * Created by IntelliJ IDEA.

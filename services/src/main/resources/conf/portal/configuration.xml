@@ -19,8 +19,8 @@
 -->
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd" xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
   <component>
-    <key>tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService</key>
-    <type>tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService</type>
+    <key>org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService</key>
+    <type>org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService</type>
     <init-params>
       <value-param>
         <name>PeriodInDays</name>
@@ -38,8 +38,8 @@
     </init-params>
   </component>
   <component>
-    <key>tn.ahamdi.birthdaysreminder.services.BirthdayReminderRestService</key>
-    <type>tn.ahamdi.birthdaysreminder.services.BirthdayReminderRestService</type>
+    <key>org.exoplatform.addons.birthdaysreminder.services.BirthdayReminderRestService</key>
+    <type>org.exoplatform.addons.birthdaysreminder.services.BirthdayReminderRestService</type>
   </component>
   <external-component-plugins>
     <target-component>org.exoplatform.services.scheduler.JobSchedulerService</target-component>
@@ -54,7 +54,7 @@
           <description>Newsletter email job</description>
           <property name="jobName" value="BirthdateCollectorJob"/>
           <property name="groupName" value="group"/>
-          <property name="job" value="tn.ahamdi.birthdaysreminder.job.BirthdaysCollectorJob"/>
+          <property name="job" value="org.exoplatform.addons.birthdaysreminder.job.BirthdaysCollectorJob"/>
           <property name="expression" value="15 1 0 * * ? *"/> <!-- Daily at Midnight-->
         </properties-param>
       </init-params>
@@ -66,7 +66,7 @@
     <component-plugin>
       <name>birthdaysReminder.update.profile.event.listener</name>
       <set-method>addListenerPlugin</set-method>
-      <type>tn.ahamdi.birthdaysreminder.Listener.NewUserProfileListener</type>
+      <type>org.exoplatform.addons.birthdaysreminder.Listener.NewUserProfileListener</type>
     </component-plugin>
   </external-component-plugins>
 
@@ -75,7 +75,7 @@
     <component-plugin>
       <name>tn.ahamdi.birthdayreminder.celebrate</name>
       <set-method>addListener</set-method>
-      <type>tn.ahamdi.birthdaysreminder.Listener.DummyBirthdayCelebrateListener</type>
+      <type>org.exoplatform.addons.birthdaysreminder.Listener.DummyBirthdayCelebrateListener</type>
       <description>Dummy Listener for celebrate birthday</description>
     </component-plugin>
   </external-component-plugins>

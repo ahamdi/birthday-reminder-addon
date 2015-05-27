@@ -1,11 +1,11 @@
-package tn.ahamdi.birthdaysreminder.Listener;
+package org.exoplatform.addons.birthdaysreminder.Listener;
 
 import org.exoplatform.services.listener.Event;
 import org.exoplatform.services.listener.Listener;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
 import org.exoplatform.services.organization.User;
-import tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService;
+import org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +14,7 @@ import tn.ahamdi.birthdaysreminder.services.BirthdaysReminderService;
  * Time: 19:05
  */
 public class DummyBirthdayCelebrateListener extends Listener<BirthdaysReminderService,User> {
-  Log LOG = ExoLogger.getLogger(tn.ahamdi.birthdaysreminder.Listener.DummyBirthdayCelebrateListener.class);
+  Log LOG = ExoLogger.getLogger(DummyBirthdayCelebrateListener.class);
   @Override
   public void onEvent(Event<BirthdaysReminderService, User> event) throws Exception {
      LOG.info("DumpBirthdayCelebrateListener is invoked here !!"+event.getData().getDisplayName());

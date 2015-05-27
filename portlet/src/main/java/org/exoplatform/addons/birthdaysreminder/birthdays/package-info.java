@@ -16,7 +16,7 @@
 
 @Application
 @Portlet
-package tn.ahamdi.birthdaysreminder.birthdays;
+package org.exoplatform.addons.birthdaysreminder.birthdays;
 
 import juzu.Application;
 import juzu.plugin.portlet.Portlet;
