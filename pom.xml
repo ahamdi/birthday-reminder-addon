@@ -9,7 +9,7 @@
   </parent>
   <groupId>tn.ahamdi</groupId>
   <artifactId>birthdays-reminder-addon</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Birthdays Reminder :: Addon</name>
   <description>Birthdays Reminder :: Addon</description>
 
