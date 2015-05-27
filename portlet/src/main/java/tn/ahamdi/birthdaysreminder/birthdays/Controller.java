@@ -32,7 +32,7 @@ public class Controller {
 
 
   @View
-  public Response.Content index() throws IOException {
-    return index.ok();
+  public void index() throws IOException {
+    index.render();
   }
 }

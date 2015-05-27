@@ -23,7 +23,7 @@
   <properties>
     <maven.compiler.target>1.6</maven.compiler.target>
     <maven.compiler.source>1.6</maven.compiler.source>
-    <org.juzu.version>1.0.0-cr2</org.juzu.version>
+    <org.juzu.version>0.6.2</org.juzu.version>
     <javax.servlet.version>3.0.1</javax.servlet.version>
     <junit.version>4.10</junit.version>
     <javax.inject.version>1</javax.inject.version>
@@ -96,7 +96,7 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.juzu</groupId>
       <artifactId>juzu-depchain-arquillian</artifactId>
       <version>${org.juzu.version}</version>
@@ -107,7 +107,7 @@
       <artifactId>juzu-depchain-arquillian-tomcat7</artifactId>
       <version>${org.juzu.version}</version>
       <scope>test</scope>
-    </dependency>
+    </dependency-->
     <dependency>
       <groupId>aopalliance</groupId>
       <artifactId>aopalliance</artifactId>
