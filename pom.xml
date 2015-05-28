@@ -8,7 +8,7 @@
     <version>5</version>
   </parent>
   <artifactId>birthdays-reminder-addon</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>Birthdays Reminder :: Addon</name>
   <description>Birthdays Reminder :: Addon</description>
 
@@ -152,7 +152,7 @@
   <scm>
     <connection>scm:git:git://github.com/ahamdi/birthday-reminder-addon.git</connection>
     <developerConnection>scm:git:git@github.com:ahamdi/birthday-reminder-addon.git</developerConnection>
-    <tag>1.0.0</tag>
+    <tag>1.0.0-SNAPSHOT</tag>
     <url>https://github.com/ahamdi/birthday-reminder-addon</url>
   </scm>
 </project>
