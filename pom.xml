@@ -7,7 +7,6 @@
     <artifactId>addons-parent-pom</artifactId>
     <version>5</version>
   </parent>
-  <groupId>tn.ahamdi</groupId>
   <artifactId>birthdays-reminder-addon</artifactId>
   <version>1.0.1-SNAPSHOT</version>
   <name>Birthdays Reminder :: Addon</name>
