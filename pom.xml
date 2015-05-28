@@ -154,6 +154,9 @@
 
 
   <scm>
+    <connection>scm:git:git://github.com/ahamdi/birthday-reminder-addon.git</connection>
+    <developerConnection>scm:git:git@github.com:ahamdi/birthday-reminder-addon.git</developerConnection>
+    <url>https://github.com/ahamdi/birthday-reminder-addon</url>
     <tag>birthdays-reminder-addon-1.0.0</tag>
   </scm>
 </project>
