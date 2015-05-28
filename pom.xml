@@ -9,7 +9,7 @@
   </parent>
   <groupId>tn.ahamdi</groupId>
   <artifactId>birthdays-reminder-addon</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Birthdays Reminder :: Addon</name>
   <description>Birthdays Reminder :: Addon</description>
 
@@ -139,24 +139,12 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-gpg-plugin</artifactId>
-    <configuration>
-      <skip>true</skip>
-    </configuration>
-  </plugin>
-    </plugins>
-  </build>
+
+
 
 
 
   <scm>
-    <connection>scm:git:git://github.com/ahamdi/birthday-reminder-addon.git</connection>
-    <developerConnection>scm:git:git@github.com:ahamdi/birthday-reminder-addon.git</developerConnection>
-    <url>https://github.com/ahamdi/birthday-reminder-addon</url>
     <tag>birthdays-reminder-addon-1.0.0</tag>
   </scm>
 </project>
