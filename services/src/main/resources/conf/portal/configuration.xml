@@ -23,17 +23,17 @@
     <type>org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderService</type>
     <init-params>
       <value-param>
-        <name>PeriodInDays</name>
-        <value>7</value>
+        <name>PeriodInDays</name><!-- PeriodInDays : number of days that the service will look for birthdays in -->
+        <value>${exo.addons.birthdayreminder.service.period:7}</value>
       </value-param>
       <value-param>
-        <name>BatchLoad</name>
-        <value>10</value>
+        <name>BatchLoad</name><!--BatchLoad : number of users to load to check their birthdays. This will be used just for the initial startup-->
+        <value>${exo.addons.birthdayreminder.service.batch:10}</value>
       </value-param>
       <!-- Mode : All : search all users - contacts : search just social contacts , possible values : all , contacts -->
       <value-param>
         <name>mode</name>
-        <value>all</value>
+        <value>${exo.addons.birthdayreminder.service.mode:all}</value>
       </value-param>
     </init-params>
   </component>
@@ -53,9 +53,9 @@
           <name>cronjob.info</name>
           <description>Newsletter email job</description>
           <property name="jobName" value="BirthdateCollectorJob"/>
-          <property name="groupName" value="group"/>
+          <property name="groupName" value="birthdayReminderGroup"/>
           <property name="job" value="org.exoplatform.addons.birthdaysreminder.job.BirthdaysCollectorJob"/>
-          <property name="expression" value="15 1 0 * * ? *"/> <!-- Daily at Midnight-->
+          <property name="expression" value="${exo.addons.birthdayreminder.job.expression:15 1 0 * * ? *}"/> <!-- Daily at Midnight-->
         </properties-param>
       </init-params>
     </component-plugin>
@@ -79,6 +79,8 @@
       <description>Dummy Listener for celebrate birthday</description>
     </component-plugin>
   </external-component-plugins>
+
+
   <external-component-plugins>
     <target-component>org.exoplatform.commons.addons.AddOnService</target-component>
     <component-plugin>
