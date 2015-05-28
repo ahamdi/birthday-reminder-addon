@@ -10,7 +10,7 @@
      <portlet-class>org.exoplatform.addons.birthdaysreminder.birthdays.BirthdaysPortlet</portlet-class>
      <init-param>
        <name>juzu.app_name</name>
-       <value>tn.ahamdi.BirthdaysReminder</value>
+       <value>org.exoplatform.addons.BirthdaysReminder</value>
      </init-param>
      <supports>
        <mime-type>text/html</mime-type>

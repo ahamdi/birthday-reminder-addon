@@ -73,7 +73,7 @@
   <external-component-plugins>
     <target-component>org.exoplatform.services.listener.ListenerService</target-component>
     <component-plugin>
-      <name>tn.ahamdi.birthdayreminder.celebrate</name>
+      <name>org.exoplatform.addons.birthdayreminder.celebrate</name>
       <set-method>addListener</set-method>
       <type>org.exoplatform.addons.birthdaysreminder.Listener.DummyBirthdayCelebrateListener</type>
       <description>Dummy Listener for celebrate birthday</description>

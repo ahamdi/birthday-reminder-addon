@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>birthdays-reminder-addon</artifactId>
-    <groupId>tn.ahamdi</groupId>
+    <groupId>org.exoplatform.addons</groupId>
     <version>1.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>birthdays-Reminder-addon-bundle</artifactId>

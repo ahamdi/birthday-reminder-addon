@@ -55,7 +55,7 @@ public class BirthdaysReminderService {
 
   public BirthdaysReminderService(ListenerService listenerService, InitParams params, CacheService cacheService, OrganizationService organizationService,RepositoryService repositoryService) {
     this.organizationService = organizationService;
-    birthdaysMap = cacheService.getCacheInstance("tn.ahamdi.birthdaysreminder.services.BirthdaysReminderCache");
+    birthdaysMap = cacheService.getCacheInstance("org.exoplatform.addons.birthdaysreminder.services.BirthdaysReminderCache");
     // the cache size will be the number of days in a year
     birthdaysMap.setMaxSize(366);
 
@@ -124,7 +124,7 @@ public class BirthdaysReminderService {
   public void fireBirthdayEvents(List<UserImpl> users) {
     try {
       for (UserImpl item : users) {
-        listenerService.broadcast("tn.ahamdi.birthdayreminder.celebrate", this, item.getUser().getDisplayName());
+        listenerService.broadcast("org.exoplatform.addons.birthdayreminder.celebrate", this, item.getUser().getDisplayName());
       }
     } catch (Exception e) {
       LOG.error("An error occurred when broadcasting Birthday celebration", e);
